@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 390" width="1380" height="390" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <style>
+    .title { font-size: 17px; font-weight: 600; fill: #1f2328; }
+    .pill { font-size: 15px; font-weight: 600; fill: #1f2328; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; fill: #57606a; }
+    .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; fill: #0969da; }
+    .note { font-size: 12px; fill: #57606a; }
+    .check { font-size: 12.5px; fill: #1f2328; }
+    .label { font-size: 12.5px; font-weight: 600; fill: #57606a; }
+    .edge { fill: none; stroke: #8c959f; stroke-width: 1.6; }
+    .head { fill: #8c959f; }
+    .agent { fill: #ddf4ff; stroke: #54aeff; stroke-width: 1.5; }
+    .harness { fill: #fff8c5; stroke: #d4a72c; stroke-width: 1.5; }
+    .good { fill: #dafbe1; stroke: #4ac26b; stroke-width: 1.5; }
+    .bad { fill: #ffebe9; stroke: #ff8182; stroke-width: 1.5; }
+    .dot { fill: #d4a72c; }
+    .rule { stroke: #d4a72c; stroke-width: 1; stroke-dasharray: 3 3; }
+    @media (prefers-color-scheme: dark) {
+      .title, .pill, .check { fill: #e6edf3; }
+      .code, .note, .label { fill: #9198a1; }
+      .path { fill: #4493f8; }
+      .edge { stroke: #6e7681; }
+      .head { fill: #6e7681; }
+      .agent { fill: #0c2d6b; stroke: #388bfd; }
+      .harness { fill: #3b2e0a; stroke: #bb8009; }
+      .good { fill: #0f3a1e; stroke: #2ea043; }
+      .bad { fill: #4c1715; stroke: #da3633; }
+      .dot { fill: #bb8009; }
+      .rule { stroke: #bb8009; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="head" d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <!-- generator -->
+  <rect class="agent" x="30" y="120" width="270" height="120" rx="14"/>
+  <text class="title" x="165" y="152" text-anchor="middle">Generator</text>
+  <text class="code" x="165" y="174" text-anchor="middle">generate.md</text>
+  <text class="path" x="165" y="200" text-anchor="middle">writes candidates/&lt;task&gt;/</text>
+  <text class="path" x="165" y="220" text-anchor="middle">notes/ scratch/ logs/</text>
+
+  <!-- harness -->
+  <rect class="harness" x="380" y="70" width="400" height="214" rx="14"/>
+  <text class="title" x="580" y="100" text-anchor="middle">taskgen evaluate</text>
+  <g class="check">
+    <circle class="dot" cx="410" cy="126" r="3"/><text x="420" y="130">manifest</text>
+    <circle class="dot" cx="410" cy="150" r="3"/><text x="420" y="154">splits</text>
+    <circle class="dot" cx="410" cy="174" r="3"/><text x="420" y="178">output</text>
+    <circle class="dot" cx="410" cy="198" r="3"/><text x="420" y="202">split sizes</text>
+    <circle class="dot" cx="560" cy="126" r="3"/><text x="570" y="130">label window</text>
+    <circle class="dot" cx="560" cy="150" r="3"/><text x="570" y="154">timestamp independence</text>
+    <circle class="dot" cx="560" cy="174" r="3"/><text x="570" y="178">novelty</text>
+    <circle class="dot" cx="560" cy="198" r="3"/><text x="570" y="202">learnability</text>
+  </g>
+  <line class="rule" x1="404" y1="220" x2="756" y2="220"/>
+  <text class="path" x="580" y="242" text-anchor="middle">writes report.json and results.tsv</text>
+  <text class="path" x="580" y="264" text-anchor="middle">keep: stores dataset/tasks/&lt;task&gt;/</text>
+
+  <!-- reviewer -->
+  <rect class="agent" x="880" y="120" width="260" height="120" rx="14"/>
+  <text class="title" x="1010" y="152" text-anchor="middle">Reviewer</text>
+  <text class="code" x="1010" y="174" text-anchor="middle">review.md · fresh context</text>
+  <text class="path" x="1010" y="200" text-anchor="middle">reads dataset/</text>
+  <text class="path" x="1010" y="220" text-anchor="middle">writes reviews/&lt;task&gt;.json</text>
+
+  <!-- outcomes -->
+  <rect class="good" x="1230" y="160" width="120" height="40" rx="20"/>
+  <text class="pill" x="1290" y="185" text-anchor="middle">approved</text>
+  <text class="path" x="1290" y="222" text-anchor="middle">stays in</text>
+  <text class="path" x="1290" y="238" text-anchor="middle">dataset/tasks/</text>
+  <rect class="bad" x="925" y="20" width="170" height="38" rx="19"/>
+  <text class="path" x="1010" y="44" text-anchor="middle">rejected/&lt;task&gt;/</text>
+
+  <!-- forward edges -->
+  <path class="edge" d="M300,180 H376" marker-end="url(#arrow)"/>
+  <text class="label" x="338" y="170" text-anchor="middle">candidate</text>
+  <path class="edge" d="M780,180 H876" marker-end="url(#arrow)"/>
+  <text class="label" x="828" y="170" text-anchor="middle">keep</text>
+  <path class="edge" d="M1140,180 H1226" marker-end="url(#arrow)"/>
+  <text class="label" x="1185" y="170" text-anchor="middle">approve</text>
+  <path class="edge" d="M1010,120 V62" marker-end="url(#arrow)"/>
+  <text class="label" x="1020" y="95">reject</text>
+
+  <!-- loops back to the generator -->
+  <path class="edge" d="M580,284 V322 H230 V244" marker-end="url(#arrow)"/>
+  <text class="label" x="405" y="315" text-anchor="middle">discard: reasons</text>
+  <path class="edge" d="M1010,240 V366 H100 V244" marker-end="url(#arrow)"/>
+  <text class="label" x="555" y="359" text-anchor="middle">revise: suggestions</text>
+</svg>

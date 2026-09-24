@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# taskgen workspaces (databases, labels, reports)
+workspace/

@@ -1,0 +1,39 @@
+[workspace]
+name = "agentic-task-gen"
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[dependencies]
+python = "3.12.*"
+# conda-forge build bundles OpenMP on macOS (the PyPI wheel needs a system libomp)
+lightgbm = ">=4.6"
+# autogluon 1.5.0 (via rdblearn) caps these
+numpy = ">=1.25,<2.4"
+scipy = ">=1.5.4,<1.17"
+scikit-learn = ">=1.4,<1.8"
+# woodwork (featuretools -> fastdfs) still imports pkg_resources
+setuptools = "<81"
+
+[pypi-dependencies]
+relbench = "==3.0.1"
+fastdfs = "==1.1"
+rdblearn = "==1.1"
+duckdb = "*"
+pyyaml = "*"
+
+[feature.dev.dependencies]
+pytest = "*"
+ruff = "==0.16.8"  # same version as .pre-commit-config.yaml
+pre-commit = "*"
+
+[environments]
+default = { features = ["dev"], solve-group = "default" }
+
+[tasks]
+taskgen = "python -m taskgen"
+test = "pytest -q tests"
+fmt = "ruff check --fix . && ruff format ."
+
+[pypi-options.dependency-overrides]
+# rdblearn pins relbench==2.1.2, but only its unused from_relbench helper imports it
+relbench = "==3.0.1"
