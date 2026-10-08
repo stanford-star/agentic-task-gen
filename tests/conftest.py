@@ -1,4 +1,4 @@
-"""A small synthetic shop database in RelBench 3 layout, and a fresh workspace per test."""
+"""A small synthetic shop database in RelBench v3 layout, and a fresh workspace per test."""
 
 import os
 import warnings

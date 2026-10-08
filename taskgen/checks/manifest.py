@@ -28,7 +28,7 @@ MANIFEST_KEYS = {
 
 
 class Manifest(Check):
-    """A RelBench 3 forecast manifest for an entity table of this database."""
+    """A RelBench v3 forecast manifest for an entity table of this database."""
 
     name = "manifest"
 

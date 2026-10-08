@@ -1,6 +1,6 @@
 # Generating tasks
 
-You are generating **forecasting tasks** for a relational database in RelBench 3 format.
+You are generating **forecasting tasks** for a relational database in RelBench v3 format.
 A task asks: *at a timestamp t, for each entity of some table, what happens in the
 window (t, t + timedelta]?* Models may use only the data up to t. Its labels are defined by a
 DuckDB query and stored as a RelBench task (binary classification or regression). Your goal
@@ -16,7 +16,7 @@ change the harness. A separate agent then reviews each kept task (step 3 of the 
 ## Setup (with the human)
 
 1. Agree on the database (a Hub spec such as `rel-f1` or `org/repo/name`, or a local
-   RelBench 3 folder) and the number of tasks to approve (default 2).
+   RelBench v3 folder) and the number of tasks to approve (default 2).
 2. `pixi run taskgen init <dataset>` creates `workspace/<name>/`. The database's val/test
    cutoffs (in `workspace/<name>/dataset/manifest.yaml`) are shared by every task and
    cannot change later. If the dataset has none, look at the data with the human, choose
@@ -121,7 +121,7 @@ what was tried and why it failed, and what you would try next.
 
 ## Writing a task
 
-A task is a RelBench 3 task manifest: one DuckDB query plus a few fields that describe its
+A task is a RelBench v3 task manifest: one DuckDB query plus a few fields that describe its
 output. `manifest.yaml` may hold only the keys in this example, for a shop database with
 `users(user_id, signup_date)` and `events(user_id, ts, amount)`:
 

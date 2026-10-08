@@ -1,11 +1,11 @@
 # Agentic task generation for relational databases
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org)
-[![RelBench 3](https://img.shields.io/badge/RelBench-3.0.1-8C1515)](https://github.com/stanford-star/relbench)
+[![RelBench v3](https://img.shields.io/badge/RelBench-3.0.1-8C1515)](https://github.com/stanford-star/relbench)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 LLM agents propose forecasting tasks for a relational database in
-[RelBench 3](https://github.com/stanford-star/relbench) format. Each task is a RelBench task
+[RelBench v3](https://github.com/stanford-star/relbench) format. Each task is a RelBench task
 manifest whose DuckDB SQL computes, at a timestamp t, a label per entity from the window
 (t, t + timedelta]. A fixed harness validates each task; a separate agent reviews what the
 harness keeps. Humans edit the instructions (`generate.md`, `review.md`); agents edit only their
@@ -34,7 +34,7 @@ train = task.get_table("train")
 
 ### Your own dataset
 
-`init` takes a local folder in RelBench 3 layout (`manifest.yaml` + `db/*.parquet`) or any
+`init` takes a local folder in RelBench v3 layout (`manifest.yaml` + `db/*.parquet`) or any
 Hugging Face dataset as `org/repo[/subdir]` (log in with `huggingface-cli login` for private repos):
 
 ```console
@@ -81,10 +81,10 @@ subclass `Check` and list it in `taskgen/checks/__init__.py`.
  ├── taskgen/                  the harness (thresholds in config.py, one class per check in checks/)
  ├── tests/                    harness tests on a synthetic database
  └── workspace/<name>/         one per database, created by `taskgen init` (gitignored)
-     ├── dataset/              a RelBench 3 dataset
+     ├── dataset/              a RelBench v3 dataset
      │   ├── manifest.yaml     tables, keys and the val/test cutoffs
      │   ├── db/               → the source tables (parquet)
-+    │   │  ┏━━ generated tasks, in RelBench 3 format ━━━━━━━━━━━━━━━━━━━━━━━━━┓
++    │   │  ┏━━ generated tasks, in RelBench v3 format ━━━━━━━━━━━━━━━━━━━━━━━━┓
 +    │   └──╂─ tasks/<task>/                                                   ┃
 +    │      ┃    ├── manifest.yaml              the task's SQL and fields      ┃
 +    │      ┃    ├── {train,val,test}.parquet   its labels                     ┃

@@ -1,4 +1,4 @@
-"""``taskgen init``: a workspace with a RelBench 3 dataset and the agent's folders."""
+"""``taskgen init``: a workspace with a RelBench v3 dataset and the agent's folders."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ class Workspace:
         val_cutoff: str | None = None,
         test_cutoff: str | None = None,
     ) -> Workspace:
-        """A new workspace for a RelBench 3 dataset (Hub spec or local folder)."""
+        """A new workspace for a RelBench v3 dataset (Hub spec or local folder)."""
         local = Path(dataset)  # read local folders directly: RelBench cannot load one without cutoffs
         source = local if (local / "manifest.yaml").exists() else relbench.load_dataset(dataset).dataset_dir
         source = Path(source).resolve()

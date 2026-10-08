@@ -33,7 +33,7 @@ def run_evaluate(args) -> str:
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="taskgen", description=__doc__)
     commands = parser.add_subparsers(required=True)
-    init = commands.add_parser("init", help="create workspace/<name> for a RelBench 3 dataset")
+    init = commands.add_parser("init", help="create workspace/<name> for a RelBench v3 dataset")
     init.add_argument("dataset", help="Hub spec (e.g. rel-f1) or local dataset folder")
     init.add_argument("--name", help="workspace name (default: the dataset's name)")
     init.add_argument("--val", help="val cutoff (required if the dataset has none)")
