@@ -108,6 +108,33 @@ $ pixi run pre-commit install    # once per clone: run ruff on every commit
 rdblearn's `relbench==2.1.2` pin (only its unused `from_relbench` helper imports relbench).
 Only `osx-arm64` is locked.
 
+## Related
+
+This repository generated the tasks in [The Join](https://huggingface.co/datasets/stanford-star/the-join),
+the pretraining data of RT-J, which is trained with
+[relational-transformer](https://github.com/stanford-star/relational-transformer). Tasks follow the
+RelBench format.
+
+## Citation
+
+```bibtex
+@inproceedings{ranjan2026rtj,
+    title={{RT-J}: Large-Scale Pretraining of Relational Transformers for Context-Efficient Predictions},
+    author={Rishabh Ranjan and Vignesh Kothapalli and Harshvardhan Agarwal and Charilaos Kanatsoulis and Roshan Upendra and Tom Palczewski and Carlos Guestrin and Jure Leskovec},
+    booktitle={The Fortieth Annual Conference on Neural Information Processing Systems},
+    year={2026}
+}
+
+@inproceedings{relbenchv2,
+  title={RelBench v2: A Large-Scale Benchmark and Repository for Relational Data},
+  author={Gu, Justin and Ranjan, Rishabh and Kanatsoulis, Charilaos and Tang, Haiming and Jurkovic, Martin and Hudovernik, Valter and Znidar, Mark and Chaturvedi, Pranshu and Shroff, Parth and Li, Fengyu and Leskovec, Jure},
+  booktitle={3rd Workshop on Navigating and Addressing Data Problems for Foundation Models (DATA-FM) at ICLR 2026},
+  year={2026},
+  note={arXiv:2602.12606 [cs.LG]},
+  url={https://arxiv.org/abs/2602.12606}
+}
+```
+
 ## License
 
 [MIT](LICENSE), © 2026 stanford-star.
