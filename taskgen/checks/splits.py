@@ -67,14 +67,14 @@ class Output(Check):
             if entities.time_col
             else pd.Series(dtype="datetime64[ns]")
         )
-        unborn = df[spec.entity_col].map(created).astype("datetime64[ns]") > df[spec.time_col]
+        unborn = df[spec.entity_col].map(created).astype("datetime64[ns]") >= df[spec.time_col]
         rules = {
             "NULLs in the output": df.isna().to_numpy().any(),
             f"{spec.entity_col} must hold {spec.entity_table} primary keys": (
                 not df[spec.entity_col].isin(entities.df[entities.pkey_col]).all()
             ),
-            f"{unborn.sum()} rows label entities created after their timestamp; keep "
-            f"{spec.entity_table}.{entities.time_col} <= the timestamp": unborn.any(),
+            f"{unborn.sum()} rows label entities created at or after their timestamp; keep "
+            f"{spec.entity_table}.{entities.time_col} < the timestamp": unborn.any(),
             f"duplicate ({spec.time_col}, {spec.entity_col}) rows": df.duplicated(columns[:2]).any(),
             f"{spec.target_col} must hold {task_type.label_format}": (
                 not task_type.is_valid(df[spec.target_col])

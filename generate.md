@@ -9,9 +9,10 @@ meaningful.
 
 You design and write the tasks. The harness (`taskgen/`) decides whether they are valid:
 it checks each query for leakage, materializes the splits exactly as RelBench does, and
-checks learnability (whether RDBLearn features + LightGBM, also given each entity's label
-history, beat baselines that use no features: constants and that label history). You cannot
-change the harness. A separate agent then reviews each kept task (step 3 of the loop).
+checks learnability (whether a predictor on RDBLearn features of the database, which include
+each entity's label history, beats baselines that use no features: constants and that label
+history). You cannot change the harness. A separate agent then reviews each kept task (step 3
+of the loop).
 
 ## Setup (with the human)
 
@@ -141,7 +142,7 @@ sql: |-
   WITH cohort AS (
       SELECT DISTINCT t.timestamp AS ts, e.user_id
       FROM timestamps t
-      JOIN events e ON e.ts > t.timestamp - INTERVAL '{timedelta}' AND e.ts <= t.timestamp
+      JOIN events e ON e.ts >= t.timestamp - INTERVAL '{timedelta}' AND e.ts < t.timestamp
   )
   SELECT c.ts AS date, c.user_id,
          CAST(NOT EXISTS (
@@ -160,22 +161,23 @@ in the window after the timestamp, and returns one row per timestamp and entity:
   `{timedelta}` becomes an interval string such as `30 days 00:00:00`: write
   `INTERVAL '{timedelta}'`, and `3 * INTERVAL '{timedelta}'` for multiples.
 - The cohort usually comes from recent activity, as in the example: entities with rows in
-  `(timestamp - k * timedelta, timestamp]`. A label that only exists when the entity acts in
+  `[timestamp - k * timedelta, timestamp)`. A label that only exists when the entity acts in
   the window (a mean, the time to the next event, a finishing position) can take its cohort
   from the window itself: join the window's rows instead of left-joining them.
 - The label reads the window, `x.ts > t.timestamp AND x.ts <= t.timestamp + INTERVAL
-  '{timedelta}'`; rows before the timestamp may feed it too (trends, novelty).
+  '{timedelta}'`; rows strictly before the timestamp may feed it too (trends, novelty).
 
 **The rules** (`evaluate` checks them; the checks are listed in README.md):
 
 - Output exactly `time_col` (the timestamp itself), `entity_col` (a primary key of the entity
   table) and `target_col` (BIGINT 0/1 for binary, a finite number for regression): one row
   per (timestamp, entity), no NULLs.
-- Nothing after `timestamp + timedelta` may affect a label.
+- Use only rows strictly before the timestamp (`< t.timestamp`) and the label window: nothing at
+  the timestamp itself (models see only the strict past) or after `timestamp + timedelta`.
 - RelBench computes all the timestamps of a split in one query, so partition every window
   function, rank or normalization by the timestamp.
-- Label only entities that exist at the timestamp: if the entity table has a time column,
-  keep it at most the timestamp.
+- Label only entities that exist before the timestamp: if the entity table has a time column,
+  keep it `< t.timestamp`.
 - Quote identifiers that are SQL keywords (`"user"`, `"position"`, `"order"`, ...).
 
 **Horizons and eval timestamps.** The val/test cutoffs belong to the database. Train
@@ -191,8 +193,8 @@ timestamps (at most (test − val) / timedelta).
 without these columns, so you can only hide columns the label does not use, and never keys
 or time columns; a pair naming no existing column is rejected. Use it for columns that leak
 the label into features: denormalized future aggregates, final statuses.
-When the learnability check reports a suspiciously accurate model, `top_features` usually
-names the culprit.
+When the learnability check reports a suspiciously accurate model, `top_features` (if the
+predictor reports feature importances) usually names the culprit.
 
 ## What you can and cannot do
 

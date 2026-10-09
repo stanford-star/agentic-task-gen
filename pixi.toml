@@ -5,8 +5,13 @@ platforms = ["osx-arm64"]
 
 [dependencies]
 python = "3.12.*"
-# conda-forge build bundles OpenMP on macOS (the PyPI wheel needs a system libomp)
+# conda-forge builds bundle OpenMP on macOS (the PyPI wheels need a system libomp)
 lightgbm = ">=4.6"
+xgboost = ">=3.4"
+# rdblearn's torch pins, from conda-forge so that torch shares that OpenMP (PyPI torch bundles a second)
+pytorch = "==2.7.1"
+torchvision = "==0.22.1"
+torchaudio = "==2.7.1"
 # autogluon 1.5.0 (via rdblearn) caps these
 numpy = ">=1.25,<2.4"
 scipy = ">=1.5.4,<1.17"
@@ -20,6 +25,9 @@ fastdfs = "==1.1"
 rdblearn = "==1.1"
 duckdb = "*"
 pyyaml = "*"
+# foundation-model predictors: TabICLv2, and NVIDIA's Kumo Tabular (not on PyPI)
+tabicl = "==2.2.0"
+structured-data-models = { git = "https://github.com/NVIDIA/structured-data-models.git", rev = "89c990710cbb61984b1c0bd9ca0259c6f4efe93f" }
 
 [feature.dev.dependencies]
 pytest = "*"
@@ -28,6 +36,9 @@ pre-commit = "*"
 
 [environments]
 default = { features = ["dev"], solve-group = "default" }
+
+[activation.env]
+PYTHONHASHSEED = "0"  # config.SEED; TabICL's predictions depend on Python's set order
 
 [tasks]
 taskgen = "python -m taskgen"

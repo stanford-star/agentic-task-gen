@@ -60,17 +60,19 @@ starts with its check's name:
 | `splits` | RelBench materializes train/val/test; at most `MAX_TRAIN_TIMESTAMPS` train timestamps |
 | `output` | three columns, no NULLs, existing entities, one row per (timestamp, entity), valid labels |
 | `split sizes` | enough rows and non-majority labels per split |
-| `label window` | labels ignore rows after `timestamp + timedelta` |
+| `label window` | rows use only the strict past (`< timestamp`) and the label window `(timestamp, timestamp + timedelta]` |
 | `timestamp independence` | a timestamp's rows don't depend on the other timestamps |
 | `novelty` | not a near-duplicate of a kept task |
-| `learnability` | RDBLearn + LightGBM beats constants and the entity's own label history on val + test |
+| `learnability` | a predictor on RDBLearn features beats constants and the entity's own label history on val + test |
 
 The harness checks mechanics, not meaning, so a fresh reviewer agent then reads each kept
 task, its labels and the database (never the generator's notes) and writes `approve`,
 `revise` or `reject` to `reviews/<task>.json`. Only approved tasks count.
 
-Thresholds are in `taskgen/config.py`. Each check is a class in `taskgen/checks/`; to add one,
-subclass `Check` and list it in `taskgen/checks/__init__.py`.
+Thresholds are in `taskgen/config.py`, and so is the predictor that learnability fits on RDBLearn's
+features of the database before each timestamp (`taskgen/featurizer.py`): `PREDICTOR` picks
+LightGBM (the default), XGBoost, TabICLv2 or NVIDIA's Kumo Tabular. Each check is a class in
+`taskgen/checks/`; to add one, subclass `Check` and list it in `taskgen/checks/__init__.py`.
 
 ## Layout
 
@@ -104,8 +106,11 @@ $ pixi run fmt                   # format with ruff
 $ pixi run pre-commit install    # once per clone: run ruff on every commit
 ```
 
-`pixi.toml` pins `relbench==3.0.1`, `fastdfs==1.1` and `rdblearn==1.1`, with an override for
-rdblearn's `relbench==2.1.2` pin (only its unused `from_relbench` helper imports relbench).
+`pixi.toml` pins `relbench==3.0.1`, `fastdfs==1.1`, `rdblearn==1.1` and `tabicl==2.2.0`, with an
+override for rdblearn's `relbench==2.1.2` pin (only its unused `from_relbench` helper imports relbench),
+and NVIDIA's [structured-data-models](https://github.com/NVIDIA/structured-data-models) (Kumo Tabular)
+at a commit. PyTorch comes from conda-forge so that it shares one OpenMP runtime with LightGBM and
+XGBoost, and the environment fixes `PYTHONHASHSEED` because TabICL's predictions depend on it.
 Only `osx-arm64` is locked.
 
 ## Related

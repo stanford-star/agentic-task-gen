@@ -37,7 +37,7 @@ Judge:
    another window, a rescaled or inverted label, a near-identical cohort)?
 4. **Usefulness.** Would a practitioner want this prediction, or is it an arbitrary
    aggregate? Is the learned signal plausibly relational, or does it come from identifiers
-   and the calendar (see `top_features`)?
+   and the calendar (see `top_features`, if reported)?
 
 Write your verdict to `workspace/<name>/reviews/<task>.json` and change nothing else. It is
 the only thing the proposing agent sees, so put everything there, and base `suggestions` on

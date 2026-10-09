@@ -110,7 +110,16 @@ class Candidate:
 
     @cached_property
     def splits(self) -> dict[str, pd.DataFrame]:
-        return {split: self.task.get_table(split, mask_input_cols=False, db=self.db).df for split in SPLITS}
+        """Each split's rows, sorted, as DuckDB returns them in no fixed order."""
+        tables = {split: self.task.get_table(split, mask_input_cols=False, db=self.db).df for split in SPLITS}
+        return {split: df.sort_values(list(df.columns), ignore_index=True) for split, df in tables.items()}
+
+    @cached_property
+    def known_labels(self) -> pd.DataFrame:
+        """Every label of the task, dated by the end of its window: it is known strictly after that."""
+        known = label_rows(pd.concat(self.splits.values()), self.spec)
+        known["timestamp"] += self.horizon
+        return known.sort_values("timestamp", ignore_index=True)
 
     def query(self, db: Database, timestamps) -> pd.DataFrame:
         """The task's SQL at `timestamps` on `db`, run as RelBench does."""

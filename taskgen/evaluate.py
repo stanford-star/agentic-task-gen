@@ -4,10 +4,16 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import os
+import random
 import re
 import time
 import traceback
 
+import numpy as np
+import torch
+
+from taskgen import config
 from taskgen.candidate import Candidate, to_json
 from taskgen.checks import CHECKS
 from taskgen.checks.base import first_line
@@ -39,7 +45,18 @@ def run_checks(candidate: Candidate, report: dict) -> tuple[str, list[str]]:
     return "keep", []
 
 
+def seed_everything() -> None:
+    """Seeds every random number generator an evaluation may use. Python's hash seed, which orders sets,
+    can only be set before Python starts, so pixi.toml sets it."""
+    if os.environ.get("PYTHONHASHSEED") != str(config.SEED):
+        raise RuntimeError(f"PYTHONHASHSEED must be {config.SEED}: run taskgen through pixi, which sets it")
+    random.seed(config.SEED)
+    np.random.seed(config.SEED)
+    torch.manual_seed(config.SEED)
+
+
 def evaluate(ws: Workspace, name: str) -> dict:
+    seed_everything()
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name):
         raise ValueError(f"task names are kebab-case, such as users-churn-30d, not {name!r}")
     candidate = Candidate(ws, name)
