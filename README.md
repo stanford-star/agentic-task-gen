@@ -115,9 +115,8 @@ Only `osx-arm64` is locked.
 
 ## Related
 
-This repository generated the tasks in [The Join](https://huggingface.co/datasets/stanford-star/the-join),
-the pretraining data of RT-J, which is trained with
-[relational-transformer](https://github.com/stanford-star/relational-transformer). Tasks follow the
+This repository is an improved version of the code used to generate the forecasting tasks in [The Join](https://huggingface.co/datasets/stanford-star/the-join),
+the pretraining data of [RT-J](https://github.com/stanford-star/relational-transformer). Tasks follow the
 RelBench format.
 
 ## Citation
