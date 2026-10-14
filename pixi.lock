@@ -133,7 +133,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/yaml-0.2.5-h74c22ad_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zlib-ng-2.3.3-h31dac16_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
-      - pypi: git+https://github.com/NVIDIA/structured-data-models.git?rev=89c990710cbb61984b1c0bd9ca0259c6f4efe93f#89c990710cbb61984b1c0bd9ca0259c6f4efe93f
       - pypi: https://files.pythonhosted.org/packages/01/61/f462f745ed039998823cf1bf141cfd6ab08c723ea3012ee5f34ac47b62eb/rdblearn-1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/07/f5/14e12e219a2715296150d35f930dc3a6ff319cd60126408e563f03100113/mlx-0.29.3-cp312-cp312-macosx_13_0_arm64.whl
@@ -175,6 +174,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/84/e5/bdb34e21523e01dceda064d63713f3bdec91388af24fba1eca7ea5e85864/kiwisolver-1.5.1-cp312-cp312-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/89/91/01023aa87c0e6b15f134e410c3c3e6905c3db20d5742ecf40b6d79d571e7/relbench-3.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/8a/db/55a262f3606bebcae07cc14095338471ad7c0bbcaa37707e6f0ee49725b7/importlib_resources-7.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/8f/0e/cf1f2d36c52deb723b3d2e26f655c5adc28648853e62c1dec67e94d84de4/structured_data_models-0.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/96/de/4bffa0f6f3257e73a22402019d19fbe34dfedc2865896f97ad57935cf7dd/autogluon_core-1.5.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl
@@ -2057,17 +2057,6 @@ packages:
     - zstd >=1.5.7,<1.6.0a0
   size: 433687
   timestamp: 1786599629846
-- pypi: git+https://github.com/NVIDIA/structured-data-models.git?rev=89c990710cbb61984b1c0bd9ca0259c6f4efe93f#89c990710cbb61984b1c0bd9ca0259c6f4efe93f
-  name: structured-data-models
-  version: 0.2.0rc2.dev5+g89c990710
-  requires_dist:
-  - torch>=2.7
-  - numpy
-  - pyarrow
-  - huggingface-hub
-  - safetensors
-  - typing-extensions
-  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/01/61/f462f745ed039998823cf1bf141cfd6ab08c723ea3012ee5f34ac47b62eb/rdblearn-1.1-py3-none-any.whl
   name: rdblearn
   version: '1.1'
@@ -3011,6 +3000,18 @@ packages:
   - pytest-enabler>=3.4 ; extra == 'enabler'
   - pytest-mypy>=1.0.1 ; platform_python_implementation != 'PyPy' and extra == 'type'
   requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/8f/0e/cf1f2d36c52deb723b3d2e26f655c5adc28648853e62c1dec67e94d84de4/structured_data_models-0.2.1-py3-none-any.whl
+  name: structured-data-models
+  version: 0.2.1
+  sha256: 4fa9a422dc3c55033cdb14096cae024b743b543ef2a8feb4b7cffb21c966f3da
+  requires_dist:
+  - torch>=2.7
+  - numpy
+  - pyarrow
+  - huggingface-hub
+  - safetensors
+  - typing-extensions
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
   name: urllib3
   version: 2.8.0

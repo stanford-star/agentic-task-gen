@@ -25,9 +25,9 @@ fastdfs = "==1.1"
 rdblearn = "==1.1"
 duckdb = "*"
 pyyaml = "*"
-# foundation-model predictors: TabICLv2, and NVIDIA's Kumo Tabular (not on PyPI)
+# foundation-model predictors: TabICLv2, and NVIDIA's Kumo Tabular
 tabicl = "==2.2.0"
-structured-data-models = { git = "https://github.com/NVIDIA/structured-data-models.git", rev = "89c990710cbb61984b1c0bd9ca0259c6f4efe93f" }
+structured-data-models = "==0.2.1"
 
 [feature.dev.dependencies]
 pytest = "*"

@@ -106,10 +106,10 @@ $ pixi run fmt                   # format with ruff
 $ pixi run pre-commit install    # once per clone: run ruff on every commit
 ```
 
-`pixi.toml` pins `relbench==3.0.1`, `fastdfs==1.1`, `rdblearn==1.1` and `tabicl==2.2.0`, with an
-override for rdblearn's `relbench==2.1.2` pin (only its unused `from_relbench` helper imports relbench),
-and NVIDIA's [structured-data-models](https://github.com/NVIDIA/structured-data-models) (Kumo Tabular)
-at a commit. PyTorch comes from conda-forge so that it shares one OpenMP runtime with LightGBM and
+`pixi.toml` pins `relbench==3.0.1`, `fastdfs==1.1`, `rdblearn==1.1`, `tabicl==2.2.0` and NVIDIA's
+[`structured-data-models==0.2.1`](https://github.com/NVIDIA/structured-data-models) (Kumo Tabular), with
+an override for rdblearn's `relbench==2.1.2` pin (only its unused `from_relbench` helper imports
+relbench). PyTorch comes from conda-forge so that it shares one OpenMP runtime with LightGBM and
 XGBoost, and the environment fixes `PYTHONHASHSEED` because TabICL's predictions depend on it.
 Only `osx-arm64` is locked.
 
