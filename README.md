@@ -2,7 +2,7 @@
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org)
 [![RelBench v3](https://img.shields.io/badge/RelBench-3.0.1-8C1515)](https://github.com/stanford-star/relbench)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
 
 LLM agents propose forecasting tasks for a relational database in
 [RelBench v3](https://github.com/stanford-star/relbench) format. Each task is a RelBench task
@@ -141,4 +141,4 @@ RelBench format.
 
 ## License
 
-[MIT](LICENSE), © 2026 stanford-star.
+[Apache-2.0](LICENSE), © 2026 stanford-star.
